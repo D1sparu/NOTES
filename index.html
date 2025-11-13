@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdown Keep</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app__header">
+        <div class="app__title">
+          <img src="logo.svg" alt="Markdown Keep logo" />
+          <div>
+            <h1>Markdown Keep</h1>
+            <p>Lightweight markdown notes with tags and drag &amp; drop</p>
+          </div>
+        </div>
+        <div class="note-toolbar">
+          <div class="search-box">
+            <span class="material-symbols-outlined" aria-hidden="true">search</span>
+            <input id="search-input" type="search" placeholder="Search notes…" />
+          </div>
+          <div class="filters">
+            <button class="chip active" data-filter="all" type="button">All</button>
+            <button class="chip" data-filter="pinned" type="button">Pinned</button>
+            <button class="chip" data-filter="archived" type="button">Archived</button>
+          </div>
+          <div class="view-toggle">
+            <button class="icon-button active" data-view="grid" type="button" aria-label="Grid view">
+              <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+            </button>
+            <button class="icon-button" data-view="list" type="button" aria-label="List view">
+              <span class="material-symbols-outlined" aria-hidden="true">view_agenda</span>
+            </button>
+          </div>
+          <button id="toggle-theme" class="icon-button" type="button" aria-label="Toggle theme">
+            <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="note-editor">
+        <div class="note-editor__form">
+          <input
+            id="note-title"
+            class="note-editor__title"
+            type="text"
+            placeholder="Title"
+            autocomplete="off"
+          />
+          <textarea
+            id="note-body"
+            class="note-editor__body"
+            placeholder="Write your note in Markdown…"
+          ></textarea>
+          <input
+            id="note-tags"
+            class="note-editor__tags"
+            type="text"
+            placeholder="Add tags separated by commas"
+            autocomplete="off"
+          />
+          <div class="note-editor__footer">
+            <div class="note-editor__buttons">
+              <button id="save-note" class="button" type="button">Save Note</button>
+              <button id="clear-editor" class="button ghost" type="button">Clear</button>
+            </div>
+            <div class="note-editor__actions">
+              <button id="copy-preview" class="icon-button" type="button" title="Copy preview">
+                <span class="material-symbols-outlined" aria-hidden="true">content_copy</span>
+              </button>
+              <button id="export-notes" class="icon-button" type="button" title="Export notes">
+                <span class="material-symbols-outlined" aria-hidden="true">download</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="note-editor__preview">
+          <div class="preview__toolbar">
+            <span>Preview</span>
+          </div>
+          <div id="preview" class="preview__content">
+            <p class="placeholder">Start writing to see preview</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div id="notes-container" class="notes notes--grid">
+          <p class="empty-state">No notes yet. Create your first one!</p>
+        </div>
+      </section>
+    </div>
+
+    <template id="note-template">
+      <article class="note-card" draggable="true">
+        <div class="note-card__header">
+          <h2 class="note-card__title"></h2>
+          <div class="note-card__actions">
+            <button class="icon-button pin" type="button" title="Pin note">
+              <span class="material-symbols-outlined" aria-hidden="true">push_pin</span>
+            </button>
+            <button class="icon-button archive" type="button" title="Archive note">
+              <span class="material-symbols-outlined" aria-hidden="true">inventory_2</span>
+            </button>
+            <button class="icon-button edit" type="button" title="Edit note">
+              <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+            </button>
+            <button class="icon-button delete" type="button" title="Delete note">
+              <span class="material-symbols-outlined" aria-hidden="true">delete</span>
+            </button>
+          </div>
+        </div>
+        <div class="note-card__content"></div>
+        <ul class="note-card__tags"></ul>
+        <div class="note-card__footer">
+          <time></time>
+        </div>
+      </article>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+
